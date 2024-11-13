@@ -1,5 +1,3 @@
-ce hook utilise une code cave, j'ai changé d'avis, je veux alloué de la mémoire au processus (je sais pas ou exactement)
-modifie le code pour allouer de la mémoire aulieu d'utiliser une code cave
 float Utils::isHit(HANDLE phandle, uintptr_t clientbase)
 {
     DWORD oldProtect = 0;
@@ -12,10 +10,10 @@ float Utils::isHit(HANDLE phandle, uintptr_t clientbase)
     };
 
     /*
-    std::vector<BYTE> jmpBytes = jmpTo(clientbase + 0x6a9d0da, clientbase+n);
+    std::vector<BYTE> jmpBytes = jmpTo(clientbase + 0x6a9d0da, clientbase+n); //code cave
     bytes.insert(bytes.end(), jmpBytes.begin(), jmpBytes.end());
  */
-    std::vector<BYTE> jmpBytes = {0xE9, 0x4E, 0x19, 0x6A, 0xFC};
+    std::vector<BYTE> jmpBytes = {0xE9, 0x4E, 0x19, 0x6A, 0xFC}; //modifie ici pour calculer le jump
     bytes.insert(bytes.end(), jmpBytes.begin(), jmpBytes.end());
 
 
@@ -28,7 +26,7 @@ float Utils::isHit(HANDLE phandle, uintptr_t clientbase)
 
 
 
-    std::vector<BYTE> jmp2 = {0xE9, 0x9A, 0xE6, 0x95, 0x03};
+    std::vector<BYTE> jmp2 = {0xE9, 0x9A, 0xE6, 0x95, 0x03};//modifie ici pour calculer le jump
     std::vector<BYTE> data = { 0x90, 0x90 };
     jmp2.insert(jmp2.end(), data.begin(), data.end());
     patchBytes((void*)(clientbase + n), jmp2.data(), jmp2.size());
